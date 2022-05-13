@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <queue>
 #include <cstdio>
+#include <iostream>
 using namespace std;
 
 int foo(int a, int b)
@@ -58,6 +59,11 @@ TEST_F(QueueTest,DequeueWorks1){
     q2_.pop();
     EXPECT_EQ(q2_.size(),1);
 }
+
+
+
+
+
 
 int main(int argc,char **argv){
     ::testing::InitGoogleTest(&argc,argv);
