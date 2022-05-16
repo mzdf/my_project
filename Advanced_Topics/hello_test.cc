@@ -92,6 +92,39 @@ TEST_F(SkipFixture, SkipOneTest){
     EXPECT_EQ(5,6);
 }
 
+bool Foo(int* a)
+{
+    if(*a==0) 
+    {
+        fprintf(stderr,"Sending myself unblocked signal");
+        kill(getpid(),SIGKILL);
+    }
+    if(*a%2==1)
+    {
+        fprintf(stderr,"Error on line .* of Foo()");
+        exit(1);
+    }
+    fprintf(stderr,"Success");
+    exit(0);
+    return *a%2==0;
+}
+TEST(MyDeathTest, Foo) {
+    ASSERT_DEATH({
+        int n=5;
+        Foo(&n);
+    },"Error on line .* of Foo()");
+}
+
+TEST(MyDeathTest,NormalExit) {
+    int n=4;
+    EXPECT_EXIT(Foo(&n),testing::ExitedWithCode(0),"Success");
+}
+
+TEST(MyDeathTest,KillProcess) {
+    int n=0;
+    EXPECT_EXIT(Foo(&n),testing::KilledBySignal(SIGKILL),"Sending myself unblocked signal");
+}
+
 int main(int argc,char **argv){
     EXPECT_EQ(3*4,15);
     ::testing::InitGoogleTest(&argc,argv);
