@@ -125,6 +125,50 @@ TEST(MyDeathTest,KillProcess) {
     EXPECT_EXIT(Foo(&n),testing::KilledBySignal(SIGKILL),"Sending myself unblocked signal");
 }
 
+//adding traces to assertions
+void Sub1(int n) {
+    EXPECT_EQ(n,1);
+    EXPECT_EQ(n+1,2);
+}
+
+TEST(Sub1Test,Sub1) {
+    {
+        SCOPED_TRACE("Tarce point added in every failure in this scope");
+        Sub1(2);
+    }
+    Sub1(9);
+}
+
+//Stop test when it runs into fatal failure
+void Subroutine() {
+    EXPECT_EQ(1,2);
+}
+
+TEST(FatalTest,FatalFailure1) {
+    int a=1;
+    //ASSERT_NO_FATAL_FAILURE(ASSERT_EQ(1,2));
+    Subroutine();
+    FAIL();
+    EXPECT_EQ(3,2)<<"Not Equal";
+}
+
+TEST(FatalTest,FatalFailure2) {
+    int a=1;
+    Subroutine();
+    FAIL();
+    ASSERT_NO_FATAL_FAILURE(EXPECT_EQ(7,7));
+    ASSERT_EQ(3,2)<<"Not Equal";
+}
+
+TEST(FatalTest,FatalFailure3) {
+    int a=1;
+    Subroutine();
+    if(HasFailure()) return;
+    EXPECT_EQ(3,2)<<"Not Equal";
+}
+
+
+
 int main(int argc,char **argv){
     EXPECT_EQ(3*4,15);
     ::testing::InitGoogleTest(&argc,argv);
