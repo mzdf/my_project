@@ -1,0 +1,65 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/lmw/my_project/Advanced_Topics/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_f9bbc/fast && /usr/bin/make  -f CMakeFiles/cmTC_f9bbc.dir/build.make CMakeFiles/cmTC_f9bbc.dir/build
+make[1]: Entering directory '/home/lmw/my_project/Advanced_Topics/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f9bbc.dir/src.c.o
+/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_f9bbc.dir/src.c.o -c /home/lmw/my_project/Advanced_Topics/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_f9bbc
+/home/lmw/Downloads/cmake-3.23.1-linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f9bbc.dir/link.txt --verbose=1
+/usr/bin/cc -rdynamic CMakeFiles/cmTC_f9bbc.dir/src.c.o -o cmTC_f9bbc 
+CMakeFiles/cmTC_f9bbc.dir/src.c.o: In function `main':
+src.c:(.text+0x3c): undefined reference to `pthread_create'
+src.c:(.text+0x48): undefined reference to `pthread_detach'
+src.c:(.text+0x54): undefined reference to `pthread_cancel'
+src.c:(.text+0x65): undefined reference to `pthread_join'
+src.c:(.text+0x79): undefined reference to `pthread_atfork'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_f9bbc.dir/build.make:98: recipe for target 'cmTC_f9bbc' failed
+make[1]: *** [cmTC_f9bbc] Error 1
+make[1]: Leaving directory '/home/lmw/my_project/Advanced_Topics/build/CMakeFiles/CMakeTmp'
+Makefile:127: recipe for target 'cmTC_f9bbc/fast' failed
+make: *** [cmTC_f9bbc/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/lmw/my_project/Advanced_Topics/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_7bd94/fast && /usr/bin/make  -f CMakeFiles/cmTC_7bd94.dir/build.make CMakeFiles/cmTC_7bd94.dir/build
+make[1]: Entering directory '/home/lmw/my_project/Advanced_Topics/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7bd94.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_7bd94.dir/CheckFunctionExists.c.o -c /home/lmw/Downloads/cmake-3.23.1-linux-x86_64/share/cmake-3.23/Modules/CheckFunctionExists.c
+Linking C executable cmTC_7bd94
+/home/lmw/Downloads/cmake-3.23.1-linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7bd94.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create -rdynamic CMakeFiles/cmTC_7bd94.dir/CheckFunctionExists.c.o -o cmTC_7bd94  -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_7bd94.dir/build.make:98: recipe for target 'cmTC_7bd94' failed
+make[1]: *** [cmTC_7bd94] Error 1
+make[1]: Leaving directory '/home/lmw/my_project/Advanced_Topics/build/CMakeFiles/CMakeTmp'
+Makefile:127: recipe for target 'cmTC_7bd94/fast' failed
+make: *** [cmTC_7bd94/fast] Error 2
+
+
+
