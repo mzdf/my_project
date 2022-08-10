@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Gun.h
+string
+-
+
+../include/Solider.h
+string
+-
+Gun.h
+../include/Gun.h
+
+/home/lmw/my_project/LinuxCommand/ch7/main.cpp
+Gun.h
+/home/lmw/my_project/LinuxCommand/ch7/Gun.h
+Solider.h
+/home/lmw/my_project/LinuxCommand/ch7/Solider.h
+iostream
+-
+string
+-
+
+/home/lmw/my_project/LinuxCommand/ch7/src/Gun.cpp
+Gun.h
+/home/lmw/my_project/LinuxCommand/ch7/src/Gun.h
+iostream
+-
+
+/home/lmw/my_project/LinuxCommand/ch7/src/Solider.cpp
+Solider.h
+/home/lmw/my_project/LinuxCommand/ch7/src/Solider.h
+string
+-
+

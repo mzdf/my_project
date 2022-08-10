@@ -11,6 +11,7 @@ int main(int argc,char **argv)
     while (i<=N)
     {
         sum = sum + i;
+        cout << "current sum is " << sum << endl;
         i = i + 1;
     }
     

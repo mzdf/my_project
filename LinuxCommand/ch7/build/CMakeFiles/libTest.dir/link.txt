@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblibTest.a  CMakeFiles/libTest.dir/src/Solider.cpp.o
+/usr/bin/ranlib liblibTest.a
